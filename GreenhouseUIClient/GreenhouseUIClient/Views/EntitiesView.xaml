@@ -1,0 +1,38 @@
+﻿<Page x:Class="GreenhouseUIClient.View.EntitesView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GreenhouseUIClient.View" xmlns:controls="clr-namespace:GreenhouseUIClient.Controls"
+      DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=EntitesViewModel}"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="EntitesView">
+
+    <DockPanel>
+        <WrapPanel DockPanel.Dock="Top" HorizontalAlignment="Center" Orientation="Horizontal">
+            <Button Style="{StaticResource ResourceKey=CmdButtonStyle}">Increase temperature</Button>
+            <Button Style="{StaticResource ResourceKey=CmdButtonStyle}">Decrease temperature</Button>
+            <Button Style="{StaticResource ResourceKey=CmdButtonStyle}">Increase humidity</Button>
+            <Button Style="{StaticResource ResourceKey=CmdButtonStyle}">Decrease humidity</Button>
+            <Button Style="{StaticResource ResourceKey=CmdButtonStyle}">Increase insolation</Button>
+            <Button Style="{StaticResource ResourceKey=CmdButtonStyle}">Decrease insolation</Button>
+        </WrapPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Vertical">
+            <ItemsControl ItemsSource="{Binding Entities}" Margin="20">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button>
+                            <controls:EntityUserControl Margin="10" Entity="{Binding}"/>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="50"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </StackPanel>
+    </DockPanel>
+</Page>

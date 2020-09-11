@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="GreenhouseUIClient.Controls.EntityUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GreenhouseUIClient.Controls"
+             mc:Ignorable="d">
+
+    <Canvas Width="120" Height="110">
+        <Canvas.Background>
+            <SolidColorBrush x:Name="colorState" Color="{Binding ColorStateString}"/>
+        </Canvas.Background>
+        <StackPanel Orientation="Vertical">
+            <StackPanel  Orientation="Horizontal">
+                <Label Content="Object ID: "></Label>
+                <Label Content="{Binding ObjectId}"></Label>
+            </StackPanel>
+            <StackPanel  Orientation="Horizontal">
+                <Label Content="Humidity: "></Label>
+                <Label Content="{Binding Humidity}"></Label>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Temperature: "></Label>
+                <Label Content="{Binding Temperature}"></Label>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Insolation:"></Label>
+                <Label Content="{Binding Insolation}"></Label>
+            </StackPanel>
+        </StackPanel>
+    </Canvas>
+</UserControl>
