@@ -14,10 +14,10 @@ namespace GreenhouseUIClient.Services
 
         public FakeEntityService()
         {
-            entites.Add(new Entity(1).UpdateState(10, 20, 30));
-            entites.Add(new Entity(2).UpdateState(40, 50, 60));
-            entites.Add(new Entity(3).UpdateState(70, 80, 90));
-            entites.Add(new Entity(4).UpdateState(100, 110, 120));
+            entites.Add(new Entity(1).UpdateState(10, 20, 30, false));
+            entites.Add(new Entity(2).UpdateState(40, 50, 60, false));
+            entites.Add(new Entity(3).UpdateState(70, 80, 90, false));
+            entites.Add(new Entity(4).UpdateState(100, 110, 120, false));
 
             fakeUpdateTimer.Interval = 1000;
             fakeUpdateTimer.Elapsed += FakeUpdateTimer_Elapsed;
@@ -29,7 +29,7 @@ namespace GreenhouseUIClient.Services
             Random random = new Random(DateTime.Now.Second);
             foreach (Entity entity in entites)
             {
-                entity.UpdateState((byte)random.Next(0, 255), (byte)random.Next(0, 255), (byte)random.Next(0, 255));
+                entity.UpdateState((byte)random.Next(0, 255), (byte)random.Next(0, 255), (byte)random.Next(0, 255), random.Next(0, 2) == 1);
                 entity.SetEntityValidState(random.Next(0, 2) == 1);
             }
         }

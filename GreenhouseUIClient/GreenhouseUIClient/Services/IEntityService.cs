@@ -6,7 +6,7 @@ using System.Text;
 namespace GreenhouseUIClient.Services
 {
     public interface IEntityService<TEntity>
-            where TEntity : BaseEntity
+            where TEntity : Base
     {
         IEnumerable<TEntity> Get();
         void ChangeStateCommand(TEntity entity);

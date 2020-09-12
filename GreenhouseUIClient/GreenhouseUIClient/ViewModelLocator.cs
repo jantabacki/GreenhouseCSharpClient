@@ -13,7 +13,7 @@ namespace GreenhouseUIClient
         {
             ContainerBuilder containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterType<EntitiesViewModel>().SingleInstance();
-            containerBuilder.RegisterType<FakeEntityService>().As<IEntityService<Entity>>();
+            containerBuilder.RegisterType<TcpEntityService>().As<IEntityService<Entity>>();
             container = containerBuilder.Build();
         }
     }

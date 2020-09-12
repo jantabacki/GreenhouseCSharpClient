@@ -5,19 +5,19 @@ using System.Text;
 
 namespace GreenhouseUIClient.Model
 {
-    public class Entity : BaseEntity
+    public class Entity : Base
     {
         private ushort objectId;
-        public ushort ObjectId { get { return objectId; } private set { objectId = value; OnPropertyChanged(); } }
+        public ushort ObjectId { get { return objectId; } set { objectId = value; OnPropertyChanged(); } }
 
         private byte humidity;
-        public byte Humidity { get { return humidity; } private set { humidity = value; OnPropertyChanged(); } }
+        public byte Humidity { get { return humidity; } set { humidity = value; OnPropertyChanged(); } }
 
         private byte temperature;
-        public byte Temperature { get { return temperature; } private set { temperature = value; OnPropertyChanged(); } }
+        public byte Temperature { get { return temperature; } set { temperature = value; OnPropertyChanged(); } }
 
         private byte insolation;
-        public byte Insolation { get { return insolation; } private set { insolation = value; OnPropertyChanged(); } }
+        public byte Insolation { get { return insolation; } set { insolation = value; OnPropertyChanged(); } }
 
         private string colorStateString = "White";
         public string ColorStateString
@@ -33,19 +33,23 @@ namespace GreenhouseUIClient.Model
             }
         }
 
+        private bool isObjectUpdated = false;
         public bool IsObjectUpdated
         {
             get
             {
-                return (DateTime.Now - lastUpdate).TotalSeconds < 30;
+                return isObjectUpdated;
+            }
+            set
+            {
+                isObjectUpdated = value;
+                OnPropertyChanged();
             }
         }
 
-        private DateTime lastUpdate;
-
         public Entity(ushort objectId)
         {
-            this.ObjectId = objectId;
+            ObjectId = objectId;
             Humidity = 0;
             Temperature = 0;
             Insolation = 0;
@@ -55,7 +59,7 @@ namespace GreenhouseUIClient.Model
         {
             if (state)
             {
-                if ((DateTime.Now - lastUpdate).TotalSeconds < 30)
+                if (IsObjectUpdated)
                 {
                     ColorStateString = "YellowGreen";
                 }
@@ -70,13 +74,12 @@ namespace GreenhouseUIClient.Model
             }
         }
 
-        public Entity UpdateState(byte humidity, byte temperature, byte insolation)
+        public Entity UpdateState(byte humidity, byte temperature, byte insolation, bool isObjectUpdated)
         {
-            this.Humidity = humidity;
-            this.Temperature = temperature;
-            this.Insolation = insolation;
-            lastUpdate = DateTime.Now;
-            OnPropertyChanged();
+            Humidity = humidity;
+            Temperature = temperature;
+            Insolation = insolation;
+            IsObjectUpdated = isObjectUpdated;
             return this;
         }
     }

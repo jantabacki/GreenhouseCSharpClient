@@ -1,0 +1,14 @@
+﻿[
+  {
+    "objectId": 1,
+    "humidity": 10,
+    "temperature": 20,
+    "insolation": 30
+  },
+  {
+    "objectId": 2,
+    "temperature": 40,
+    "humidity": 50,
+    "insolation": 60
+  }
+]
