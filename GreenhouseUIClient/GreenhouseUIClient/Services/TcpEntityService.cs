@@ -36,7 +36,17 @@ namespace GreenhouseUIClient.Services
             UpdateState();
         }
 
-        private byte[] SendData(byte[] data)
+        private void SendData(byte[] data)
+        {
+            TcpClient tcpClient = new TcpClient();
+            tcpClient.Connect(address, port);
+            NetworkStream networkStream = tcpClient.GetStream();
+            networkStream.Write(data, 0, data.Length);
+            networkStream.Close();
+            tcpClient.Close();
+        }
+
+        private byte[] SendDataWithResponse(byte[] data)
         {
             TcpClient tcpClient = new TcpClient();
             tcpClient.Connect(address, port);
@@ -51,7 +61,10 @@ namespace GreenhouseUIClient.Services
 
         public void ChangeStateCommand(Entity entity)
         {
-            throw new NotImplementedException();
+            Command command = new Command(CommandType.SetParameters, entity.ObjectId, entity.Humidity, entity.Temperature, entity.Insolation);
+            string jsonData = JsonConvert.SerializeObject(command);
+            byte[] buffer = Encoding.ASCII.GetBytes(jsonData);
+            SendData(buffer);
         }
 
         public IEnumerable<Entity> Get()
@@ -66,7 +79,7 @@ namespace GreenhouseUIClient.Services
                 Command command = new Command(CommandType.GetData, 0, 0, 0, 0);
                 string jsonData = JsonConvert.SerializeObject(command);
                 byte[] buffer = Encoding.ASCII.GetBytes(jsonData);
-                byte[] response = SendData(buffer);
+                byte[] response = SendDataWithResponse(buffer);
                 string jsonDataResponse = Encoding.ASCII.GetString(response, 0, response.Length);
                 List<Entity> receivedEntites = JsonConvert.DeserializeObject<List<Entity>>(jsonDataResponse);
                 foreach (Entity receivedEntity in receivedEntites)

@@ -7,22 +7,23 @@
       DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=EntitesViewModel}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="EntitesView">
+      Title="EntitesView"
+      x:Name="EntitiesViewPage">
 
     <DockPanel>
         <WrapPanel DockPanel.Dock="Top" HorizontalAlignment="Center" Orientation="Horizontal">
-            <Button Style="{StaticResource ResourceKey=CmdButtonStyle}">Increase temperature</Button>
-            <Button Style="{StaticResource ResourceKey=CmdButtonStyle}">Decrease temperature</Button>
-            <Button Style="{StaticResource ResourceKey=CmdButtonStyle}">Increase humidity</Button>
-            <Button Style="{StaticResource ResourceKey=CmdButtonStyle}">Decrease humidity</Button>
-            <Button Style="{StaticResource ResourceKey=CmdButtonStyle}">Increase insolation</Button>
-            <Button Style="{StaticResource ResourceKey=CmdButtonStyle}">Decrease insolation</Button>
+            <Button Style="{StaticResource ResourceKey=CmdButtonStyle}" Command="{Binding ChangeStateCommand}" CommandParameter="IncreaseTemperature">Increase temperature</Button>
+            <Button Style="{StaticResource ResourceKey=CmdButtonStyle}" Command="{Binding ChangeStateCommand}" CommandParameter="DecreaseTemperature">Decrease temperature</Button>
+            <Button Style="{StaticResource ResourceKey=CmdButtonStyle}" Command="{Binding ChangeStateCommand}" CommandParameter="IncreaseHumidity">Increase humidity</Button>
+            <Button Style="{StaticResource ResourceKey=CmdButtonStyle}" Command="{Binding ChangeStateCommand}" CommandParameter="DecreaseHumidity">Decrease humidity</Button>
+            <Button Style="{StaticResource ResourceKey=CmdButtonStyle}" Command="{Binding ChangeStateCommand}" CommandParameter="IncreaseInsolation">Increase insolation</Button>
+            <Button Style="{StaticResource ResourceKey=CmdButtonStyle}" Command="{Binding ChangeStateCommand}" CommandParameter="DecreaseInsolation">Decrease insolation</Button>
         </WrapPanel>
         <StackPanel DockPanel.Dock="Top" Orientation="Vertical">
             <ItemsControl ItemsSource="{Binding Entities}" Margin="20">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button>
+                        <Button Command="{Binding Source={StaticResource ViewModelLocator}, Path=EntitesViewModel.EntityClickCommand}" CommandParameter="{Binding}">
                             <controls:EntityUserControl Margin="10" Entity="{Binding}"/>
                         </Button>
                     </DataTemplate>

@@ -19,6 +19,7 @@ namespace GreenhouseUIClient.Model
         private byte insolation;
         public byte Insolation { get { return insolation; } set { insolation = value; OnPropertyChanged(); } }
 
+        private bool isSelected;
         private string colorStateString = "White";
         public string ColorStateString
         {
@@ -47,6 +48,12 @@ namespace GreenhouseUIClient.Model
             }
         }
 
+        internal void UnmarkSelected()
+        {
+            isSelected = false;
+            OnPropertyChanged();
+        }
+
         public Entity(ushort objectId)
         {
             ObjectId = objectId;
@@ -55,8 +62,20 @@ namespace GreenhouseUIClient.Model
             Insolation = 0;
         }
 
+        internal void MarkSelected()
+        {
+            isSelected = true;
+            OnPropertyChanged();
+        }
+
         public void SetEntityValidState(bool state)
         {
+            if (isSelected)
+            {
+                ColorStateString = "Yellow";
+                return;
+            }
+
             if (state)
             {
                 if (IsObjectUpdated)
